@@ -149,7 +149,4 @@ def main():
         apple.draw()
         snake.draw()
         pygame.display.update()
-
-
-if __name__ == '__main__':
-    main()
+        
