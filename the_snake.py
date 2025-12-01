@@ -24,8 +24,8 @@ clock = pygame.time.Clock()
 
 class GameObject:
     """Базовый класс для игровых объектов."""
-    
-    def __init__(self, position=None):
+
+    def __init__(self, position=None, body_color=None):
         """Инициализация игрового объекта."""
         if position is None:
             x = (SCREEN_WIDTH // 2 // GRID_SIZE) * GRID_SIZE
@@ -33,6 +33,11 @@ class GameObject:
             self.position = (x, y)
         else:
             self.position = position
+        self.body_color = body_color
+
+    def draw(self):
+        """Абстрактный метод для отрисовки объекта."""
+        pass
 
 
 class Apple(GameObject):
@@ -40,7 +45,7 @@ class Apple(GameObject):
 
     def __init__(self):
         """Инициализация яблока."""
-        super().__init__()
+        super().__init__(body_color=APPLE_COLOR)
         self.randomize_position()
 
     def randomize_position(self):
@@ -52,7 +57,7 @@ class Apple(GameObject):
     def draw(self):
         """Отрисовывает яблоко на экране."""
         rect = pygame.Rect(self.position, (GRID_SIZE, GRID_SIZE))
-        pygame.draw.rect(screen, APPLE_COLOR, rect)
+        pygame.draw.rect(screen, self.body_color, rect)
         pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
 
 
@@ -61,7 +66,7 @@ class Snake(GameObject):
 
     def __init__(self):
         """Инициализация змейки."""
-        super().__init__()
+        super().__init__(body_color=SNAKE_COLOR)
         self.length = 1
         self.positions = [self.position]
         self.direction = RIGHT
@@ -103,11 +108,11 @@ class Snake(GameObject):
         """Отрисовывает змейку на экране."""
         for position in self.positions[:-1]:
             rect = pygame.Rect(position, (GRID_SIZE, GRID_SIZE))
-            pygame.draw.rect(screen, SNAKE_COLOR, rect)
+            pygame.draw.rect(screen, self.body_color, rect)
             pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
 
         head_rect = pygame.Rect(self.positions[0], (GRID_SIZE, GRID_SIZE))
-        pygame.draw.rect(screen, SNAKE_COLOR, head_rect)
+        pygame.draw.rect(screen, self.body_color, head_rect)
         pygame.draw.rect(screen, BORDER_COLOR, head_rect, 1)
 
         if self.last:
@@ -168,4 +173,3 @@ def main():
         apple.draw()
         snake.draw()
         pygame.display.update()
-        
