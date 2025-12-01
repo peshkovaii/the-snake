@@ -37,7 +37,7 @@ class GameObject:
 
 class Apple(GameObject):
     """Класс для яблока."""
-    
+
     def __init__(self):
         """Инициализация яблока."""
         super().__init__()
@@ -58,7 +58,7 @@ class Apple(GameObject):
 
 class Snake(GameObject):
     """Класс для змейки."""
-    
+
     def __init__(self):
         """Инициализация змейки."""
         super().__init__()
